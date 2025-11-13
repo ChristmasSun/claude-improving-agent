@@ -842,11 +842,13 @@ class FOLProver:
                 if new_formula not in known_formulas:
                     new_formulas.append((new_formula, justification))
 
-            # 4. AND Introduction
-            and_intro_results = AndIntroductionFOL.apply(known_formulas)
-            for new_formula, justification in and_intro_results:
-                if new_formula not in known_formulas:
-                    new_formulas.append((new_formula, justification))
+            # 4. AND Introduction (DISABLED - causes combinatorial explosion)
+            # Only enable if we have very few formulas
+            if len(known_formulas) < 10:
+                and_intro_results = AndIntroductionFOL.apply(known_formulas)
+                for new_formula, justification in and_intro_results:
+                    if new_formula not in known_formulas:
+                        new_formulas.append((new_formula, justification))
 
             # 5. AND Elimination
             and_elim_results = AndEliminationFOL.apply(known_formulas)
