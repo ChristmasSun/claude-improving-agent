@@ -1,0 +1,17 @@
+{
+  "turns": 50,
+  "agents": 100,
+  "unique_features": 19079,
+  "total_feature_instances": 36060,
+  "total_abilities": 20700,
+  "total_systems": 5320,
+  "total_genes": 100000,
+  "total_skills": 50000,
+  "total_memories": 19501,
+  "total_relationships": 3929,
+  "total_mutations": 37558,
+  "total_evolutions": 956,
+  "emergent_systems": 19,
+  "total_events": 1450,
+  "total_complexity": 293787
+}
