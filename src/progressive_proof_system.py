@@ -489,7 +489,7 @@ class Proof:
 class ProofSearchEngine:
     """Search engine for finding proofs"""
 
-    def __init__(self, max_difficulty: int = 4):
+    def __init__(self, max_difficulty: int = 4, max_steps: int = 50):
         # All inference rules
         all_rules = [
             # Level 1
@@ -511,7 +511,7 @@ class ProofSearchEngine:
 
         # Filter rules by difficulty
         self.inference_rules = [r for r in all_rules if r.difficulty <= max_difficulty]
-        self.max_steps = 100
+        self.max_steps = max_steps
         self.max_breadth = 150
 
     def forward_chaining(self, axioms: List[LogicStatement], goal: LogicStatement) -> Optional[Proof]:
@@ -828,8 +828,11 @@ DIFFICULTY LEVELS:
         print(f"  Axioms: {', '.join(str(a) for a in axioms)}")
         print(f"  Goal: {goal}")
 
-        # Create engine with appropriate difficulty
-        engine = ProofSearchEngine(max_difficulty=difficulty)
+        # Create engine with appropriate difficulty and step limit
+        # Reduce max_steps for harder theorems to avoid getting stuck
+        max_steps_by_level = {1: 20, 2: 30, 3: 30, 4: 40, 5: 50, 6: 60}
+        max_steps = max_steps_by_level.get(difficulty, 30)
+        engine = ProofSearchEngine(max_difficulty=difficulty, max_steps=max_steps)
 
         # Have agents try to prove it
         best_proof = None
