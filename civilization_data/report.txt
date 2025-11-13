@@ -1,0 +1,71 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                       CIVILIZATION REPORT: Nova Terra                        ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+Duration: 20 turns
+
+────────────────────────────────────────────────────────────────────────────────
+DEMOGRAPHICS
+────────────────────────────────────────────────────────────────────────────────
+Total Population: 25
+Total Births: 25
+Total Deaths: 0
+Population Growth: +25
+
+────────────────────────────────────────────────────────────────────────────────
+NOTABLE CITIZENS
+────────────────────────────────────────────────────────────────────────────────
+1. Phoenix1 the Builder
+   Age: 20 | Contributions: 5
+   Latest: Built Art Gallery #5
+2. Alan5 the Builder
+   Age: 20 | Contributions: 5
+   Latest: Built Art Gallery #5
+3. Sophie4 the Artist
+   Age: 20 | Contributions: 3
+   Latest: Created music: Percussive dance of progress
+4. Emmy6 the Scientist
+   Age: 20 | Contributions: 3
+   Latest: Discovered Architecture
+5. John13 the Artist
+   Age: 15 | Contributions: 3
+   Latest: Created poetry: Untitled work
+
+────────────────────────────────────────────────────────────────────────────────
+CULTURAL ACHIEVEMENTS
+────────────────────────────────────────────────────────────────────────────────
+Total Artifacts: 8
+  Music: 4
+  Poetry: 2
+  Story: 2
+
+Recent Creations:
+  • story: 'Myth of the eternal flame' by Marie18
+  • story: 'Chronicle of the golden age' by Marie18
+  • poetry: 'Untitled work' by John13
+
+────────────────────────────────────────────────────────────────────────────────
+TECHNOLOGICAL PROGRESS
+────────────────────────────────────────────────────────────────────────────────
+Tech Level: 3
+Discoveries: 3
+  • Writing System (L2) - Enables knowledge sharing [by Emmy6]
+  • Medicine (L3) - Increases lifespan [by Emmy6]
+  • Architecture (L3) - Enables better buildings [by Emmy6]
+
+────────────────────────────────────────────────────────────────────────────────
+INFRASTRUCTURE
+────────────────────────────────────────────────────────────────────────────────
+Total Buildings: 5
+  Spiritual: 2
+  Community: 1
+  Trade: 1
+  Culture: 1
+
+────────────────────────────────────────────────────────────────────────────────
+MAJOR EVENTS
+────────────────────────────────────────────────────────────────────────────────
+  Turn 0: Civilization founded with 10 agents
+  Turn 15: Writing System discovered
+  Turn 17: Medicine discovered
+  Turn 19: Architecture discovered

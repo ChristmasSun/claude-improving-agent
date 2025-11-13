@@ -1,0 +1,61 @@
+{
+  "name": "Nova Terra",
+  "turn": 20,
+  "population": 25,
+  "births": 25,
+  "deaths": 0,
+  "tech_level": 3,
+  "statistics": {
+    "artifacts_created": 8,
+    "technologies_discovered": 3,
+    "buildings_built": 5
+  },
+  "population_history": [
+    10,
+    11,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    16,
+    16,
+    17,
+    17,
+    17,
+    17,
+    18,
+    19,
+    20,
+    21,
+    23,
+    25
+  ],
+  "major_events": [
+    {
+      "turn": 0,
+      "type": "founding",
+      "description": "Civilization founded with 10 agents",
+      "timestamp": "2025-11-13T08:40:43.438700"
+    },
+    {
+      "turn": 15,
+      "type": "discovery",
+      "description": "Writing System discovered",
+      "timestamp": "2025-11-13T08:40:53.456874"
+    },
+    {
+      "turn": 17,
+      "type": "discovery",
+      "description": "Medicine discovered",
+      "timestamp": "2025-11-13T08:40:55.459618"
+    },
+    {
+      "turn": 19,
+      "type": "discovery",
+      "description": "Architecture discovered",
+      "timestamp": "2025-11-13T08:40:56.461877"
+    }
+  ]
+}
