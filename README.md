@@ -2,23 +2,50 @@
 
 A fascinating experiment in AI evolution where each generation of agent designs a better, more autonomous version of itself.
 
+## 🌍 NEW: Multi-Agent Evolution Ecosystem!
+
+**HUGE UPDATE**: We now have a **Multi-Agent Evolution Ecosystem** where multiple AI lineages evolve simultaneously, compete, cooperate, and learn from each other!
+
+```bash
+# Run the ecosystem demo
+python demo_ecosystem.py
+
+# Run live with API key
+python run_ecosystem.py --lineages 3 --generations 3
+```
+
+See [ECOSYSTEM.md](ECOSYSTEM.md) for full documentation of this revolutionary feature!
+
 ## Overview
 
-This system implements a recursive self-improvement loop:
+This system implements two modes:
 
+### Single Agent Mode (Original)
 1. **Generation 0** starts with basic capabilities
 2. Each generation generates a plan and executes it
 3. Each generation designs an improved version of itself
 4. The system spawns the new generation with enhanced capabilities
 5. Process repeats, creating increasingly sophisticated agents
 
+### Ecosystem Mode (NEW! 🔥)
+1. **Multiple lineages** evolve simultaneously
+2. Agents **observe and learn** from successful peers
+3. **Capability marketplace** enables knowledge trading
+4. **Competition** drives faster innovation
+5. **Real-time leaderboard** tracks fitness rankings
+6. **Emergent behaviors** arise from interaction
+
 ### Key Features
 
 - **Recursive Self-Improvement**: Each agent designs its successor
+- **Multi-Agent Ecosystem**: Multiple lineages evolving together (NEW!)
+- **Peer Learning**: Agents observe and learn from each other (NEW!)
+- **Capability Trading**: Marketplace for sharing knowledge (NEW!)
 - **Increasing Autonomy**: Agents become more autonomous over generations
 - **Comprehensive Logging**: Every thought and decision is logged
 - **Full Test Coverage**: Thoroughly tested with pytest
 - **Flexible Configuration**: Customize generations, tasks, and models
+- **Beautiful Visualization**: Real-time progress and leaderboards (NEW!)
 
 ## Installation
 
