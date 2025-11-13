@@ -2,48 +2,43 @@
 ║                       CIVILIZATION REPORT: Nova Terra                        ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
 
-Duration: 15 turns
+Duration: 10 turns
 
 ────────────────────────────────────────────────────────────────────────────────
 DEMOGRAPHICS
 ────────────────────────────────────────────────────────────────────────────────
-Total Population: 14
-Total Births: 14
+Total Population: 7
+Total Births: 7
 Total Deaths: 0
-Population Growth: +14
+Population Growth: +7
 
 ────────────────────────────────────────────────────────────────────────────────
 NOTABLE CITIZENS
 ────────────────────────────────────────────────────────────────────────────────
-1. Leo4 the Artist
-   Age: 15 | Contributions: 8
+1. Ada5 the Artist
+   Age: 10 | Contributions: 3
    Latest: Created sculpture: Untitled work
-2. Luna2 the Builder
-   Age: 15 | Contributions: 2
-   Latest: Built Workshop #2
-3. Ada3 the Builder
-   Age: 15 | Contributions: 2
-   Latest: Built Workshop #2
-4. Sage12 the Artist
-   Age: 5 | Contributions: 2
-   Latest: Created poetry: Untitled work
-5. Isaac1 the Worker
-   Age: 15 | Contributions: 0
+2. Leo1 the Leader
+   Age: 10 | Contributions: 0
+3. Leo2 the Trader
+   Age: 10 | Contributions: 0
+4. Ada3 the Worker
+   Age: 10 | Contributions: 0
+5. Kai4 the Worker
+   Age: 10 | Contributions: 0
 
 ────────────────────────────────────────────────────────────────────────────────
 CULTURAL ACHIEVEMENTS
 ────────────────────────────────────────────────────────────────────────────────
-Total Artifacts: 10
-  Music: 4
-  Sculpture: 3
-  Dance: 1
+Total Artifacts: 3
   Story: 1
-  Poetry: 1
+  Music: 1
+  Sculpture: 1
 
 Recent Creations:
-  • sculpture: 'Untitled work' by Sage12
-  • sculpture: 'Untitled work' by Leo4
-  • poetry: 'Untitled work' by Sage12
+  • story: 'Tale of the great journey' by Ada5
+  • music: 'Harmonic exploration of nature' by Ada5
+  • sculpture: 'Untitled work' by Ada5
 
 ────────────────────────────────────────────────────────────────────────────────
 TECHNOLOGICAL PROGRESS
@@ -54,10 +49,9 @@ Discoveries: 0
 ────────────────────────────────────────────────────────────────────────────────
 INFRASTRUCTURE
 ────────────────────────────────────────────────────────────────────────────────
-Total Buildings: 2
-  Production: 2
+Total Buildings: 0
 
 ────────────────────────────────────────────────────────────────────────────────
 MAJOR EVENTS
 ────────────────────────────────────────────────────────────────────────────────
-  Turn 0: Civilization founded with 8 agents
+  Turn 0: Civilization founded with 5 agents

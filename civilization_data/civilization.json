@@ -1,38 +1,33 @@
 {
   "name": "Nova Terra",
-  "turn": 15,
-  "population": 14,
-  "births": 14,
+  "turn": 10,
+  "population": 7,
+  "births": 7,
   "deaths": 0,
   "tech_level": 0,
   "statistics": {
-    "artifacts_created": 10,
+    "artifacts_created": 3,
     "technologies_discovered": 0,
-    "buildings_built": 2
+    "buildings_built": 0
   },
   "population_history": [
-    8,
-    8,
-    9,
-    9,
-    9,
-    9,
-    10,
-    10,
-    11,
-    12,
-    12,
-    12,
-    12,
-    13,
-    14
+    5,
+    5,
+    6,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7,
+    7
   ],
   "major_events": [
     {
       "turn": 0,
       "type": "founding",
-      "description": "Civilization founded with 8 agents",
-      "timestamp": "2025-11-13T09:28:50.324616"
+      "description": "Civilization founded with 5 agents",
+      "timestamp": "2025-11-13T09:34:46.915892"
     }
   ]
 }

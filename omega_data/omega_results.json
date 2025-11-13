@@ -1,5 +1,5 @@
 {
-  "turns": 15,
+  "turns": 10,
   "civilizations": 3,
   "global_consciousness": 0,
   "world_events": [],
@@ -7,15 +7,15 @@
     {
       "name": "Atlantis",
       "type": "Scientific",
-      "population": 9,
-      "tech_level": 4,
-      "wars_won": 2,
+      "population": 7,
+      "tech_level": 1,
+      "wars_won": 1,
       "self_aware_agents": 0
     },
     {
       "name": "Sparta",
       "type": "Militaristic",
-      "population": 8,
+      "population": 7,
       "tech_level": 0,
       "wars_won": 0,
       "self_aware_agents": 0
@@ -23,9 +23,9 @@
     {
       "name": "Florence",
       "type": "Cultural",
-      "population": 3,
+      "population": 6,
       "tech_level": 0,
-      "wars_won": 0,
+      "wars_won": 1,
       "self_aware_agents": 0
     }
   ]
