@@ -1,21 +1,21 @@
 {
   "turns": 15,
-  "civilizations": 5,
+  "civilizations": 3,
   "global_consciousness": 0,
   "world_events": [],
   "civ_summaries": [
     {
       "name": "Atlantis",
       "type": "Scientific",
-      "population": 11,
-      "tech_level": 5,
-      "wars_won": 0,
+      "population": 9,
+      "tech_level": 4,
+      "wars_won": 2,
       "self_aware_agents": 0
     },
     {
       "name": "Sparta",
       "type": "Militaristic",
-      "population": 11,
+      "population": 8,
       "tech_level": 0,
       "wars_won": 0,
       "self_aware_agents": 0
@@ -23,23 +23,7 @@
     {
       "name": "Florence",
       "type": "Cultural",
-      "population": 12,
-      "tech_level": 0,
-      "wars_won": 1,
-      "self_aware_agents": 0
-    },
-    {
-      "name": "Venice",
-      "type": "Economic",
-      "population": 11,
-      "tech_level": 0,
-      "wars_won": 0,
-      "self_aware_agents": 0
-    },
-    {
-      "name": "Zion",
-      "type": "Spiritual",
-      "population": 11,
+      "population": 3,
       "tech_level": 0,
       "wars_won": 0,
       "self_aware_agents": 0

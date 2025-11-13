@@ -1,11 +1,11 @@
 {
-  "turns": 20,
-  "agents": 10,
+  "turns": 15,
+  "agents": 8,
   "transcended": 0,
-  "universes": 2,
+  "universes": 1,
   "paradoxes": 0,
   "subsimulations": 0,
-  "hiveminds": 1,
-  "languages": 4,
-  "singularity_level": 1
+  "hiveminds": 2,
+  "languages": 3,
+  "singularity_level": 0
 }
