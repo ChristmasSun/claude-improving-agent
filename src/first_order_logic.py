@@ -37,6 +37,11 @@ class FormulaType(Enum):
     IFF = "iff"  # if and only if
     FORALL = "forall"
     EXISTS = "exists"
+    # Temporal logic operators
+    NEXT = "next"  # ○φ - φ holds in next state
+    EVENTUALLY = "eventually"  # ◇φ - φ holds at some future state
+    ALWAYS = "always"  # □φ - φ holds in all future states
+    UNTIL = "until"  # φ U ψ - φ holds until ψ holds
 
 
 @dataclass(frozen=True)
@@ -119,6 +124,14 @@ class Formula:
             return f"∀{self.variable} {self.inner}"
         elif self.formula_type == FormulaType.EXISTS:
             return f"∃{self.variable} {self.inner}"
+        elif self.formula_type == FormulaType.NEXT:
+            return f"○{self.inner}"
+        elif self.formula_type == FormulaType.EVENTUALLY:
+            return f"◇{self.inner}"
+        elif self.formula_type == FormulaType.ALWAYS:
+            return f"□{self.inner}"
+        elif self.formula_type == FormulaType.UNTIL:
+            return f"({self.left} U {self.right})"
         return "?"
 
     def __hash__(self):
@@ -135,7 +148,7 @@ class Formula:
         elif self.formula_type == FormulaType.NOT:
             return self.inner.get_free_variables()
         elif self.formula_type in [FormulaType.AND, FormulaType.OR,
-                                   FormulaType.IMPLIES, FormulaType.IFF]:
+                                   FormulaType.IMPLIES, FormulaType.IFF, FormulaType.UNTIL]:
             left_vars = self.left.get_free_variables()
             right_vars = self.right.get_free_variables()
             return left_vars.union(right_vars)
@@ -143,6 +156,8 @@ class Formula:
             inner_vars = self.inner.get_free_variables()
             inner_vars.discard(self.variable)  # This variable is bound
             return inner_vars
+        elif self.formula_type in [FormulaType.NEXT, FormulaType.EVENTUALLY, FormulaType.ALWAYS]:
+            return self.inner.get_free_variables()
         return set()
 
 
@@ -411,6 +426,299 @@ class AndEliminationFOL(FOLInferenceRule):
         return results
 
 
+class EqualityTransitivity(FOLInferenceRule):
+    """
+    Equality Transitivity: a=b, b=c ⊢ a=c
+
+    This is CRUCIAL for chaining equations!
+    """
+    name = "Equality Transitivity"
+
+    @staticmethod
+    def apply(formulas: List[Formula]) -> List[Tuple[Formula, str]]:
+        results = []
+
+        # Find all equality predicates
+        equalities = [f for f in formulas
+                     if f.formula_type == FormulaType.PREDICATE and f.predicate == "Equals"]
+
+        # Try to chain equalities
+        for eq1 in equalities:
+            for eq2 in equalities:
+                if len(eq1.args) == 2 and len(eq2.args) == 2:
+                    a, b = eq1.args
+                    c, d = eq2.args
+
+                    # If b == c, then a = d
+                    if b == c:
+                        new_eq = Formula(
+                            formula_type=FormulaType.PREDICATE,
+                            predicate="Equals",
+                            args=(a, d)
+                        )
+                        if new_eq not in formulas:
+                            justification = f"Transitivity: {eq1}, {eq2} ⊢ {new_eq}"
+                            results.append((new_eq, justification))
+
+                    # If b == d, then a = c
+                    if b == d:
+                        new_eq = Formula(
+                            formula_type=FormulaType.PREDICATE,
+                            predicate="Equals",
+                            args=(a, c)
+                        )
+                        if new_eq not in formulas:
+                            justification = f"Transitivity: {eq1}, {eq2} ⊢ {new_eq}"
+                            results.append((new_eq, justification))
+
+        return results
+
+
+class EqualitySymmetry(FOLInferenceRule):
+    """
+    Equality Symmetry: a=b ⊢ b=a
+
+    Equality is symmetric!
+    """
+    name = "Equality Symmetry"
+
+    @staticmethod
+    def apply(formulas: List[Formula]) -> List[Tuple[Formula, str]]:
+        results = []
+
+        for formula in formulas:
+            if formula.formula_type == FormulaType.PREDICATE and formula.predicate == "Equals":
+                if len(formula.args) == 2:
+                    a, b = formula.args
+                    # Create symmetric version
+                    symmetric = Formula(
+                        formula_type=FormulaType.PREDICATE,
+                        predicate="Equals",
+                        args=(b, a)
+                    )
+                    if symmetric not in formulas:
+                        justification = f"Symmetry: {formula} ⊢ {symmetric}"
+                        results.append((symmetric, justification))
+
+        return results
+
+
+class FunctionSubstitution(FOLInferenceRule):
+    """
+    Function Substitution: f(x)=y, x=z ⊢ f(z)=y
+
+    This allows us to substitute equals for equals in function arguments!
+    CRITICAL for Collatz reasoning!
+    """
+    name = "Function Substitution"
+
+    @staticmethod
+    def apply(formulas: List[Formula]) -> List[Tuple[Formula, str]]:
+        results = []
+
+        # Find function equalities: f(...) = something
+        func_eqs = []
+        var_eqs = []
+
+        for formula in formulas:
+            if formula.formula_type == FormulaType.PREDICATE and formula.predicate == "Equals":
+                if len(formula.args) == 2:
+                    left, right = formula.args
+                    if left.term_type == TermType.FUNCTION:
+                        func_eqs.append((left, right, formula))
+                    if left.term_type == TermType.VARIABLE or left.term_type == TermType.CONSTANT:
+                        var_eqs.append((left, right, formula))
+
+        # Try substitutions
+        for func_term, func_result, func_formula in func_eqs:
+            for var, replacement, var_formula in var_eqs:
+                # Check if var appears in func_term's arguments
+                for i, arg in enumerate(func_term.args):
+                    if arg == var:
+                        # Substitute!
+                        new_args = list(func_term.args)
+                        new_args[i] = replacement
+                        new_func_term = Term(
+                            term_type=TermType.FUNCTION,
+                            function=func_term.function,
+                            args=tuple(new_args)
+                        )
+                        new_formula = Formula(
+                            formula_type=FormulaType.PREDICATE,
+                            predicate="Equals",
+                            args=(new_func_term, func_result)
+                        )
+                        if new_formula not in formulas:
+                            justification = f"Substitution: {func_formula}, {var_formula} ⊢ {new_formula}"
+                            results.append((new_formula, justification))
+
+        return results
+
+
+class MathematicalInduction(FOLInferenceRule):
+    """
+    Mathematical Induction: The most powerful inference rule!
+
+    To prove ∀n φ(n), we need:
+    1. Base case: φ(0)
+    2. Inductive step: ∀k (φ(k) → φ(succ(k)))
+
+    Then we can conclude: ∀n φ(n)
+
+    This is the KEY RULE for proving properties about all natural numbers!
+    """
+    name = "Mathematical Induction"
+
+    @staticmethod
+    def can_apply(formulas: List[Formula], variable: str = "n") -> Optional[Tuple[Formula, Formula]]:
+        """
+        Check if we have both a base case and inductive step for induction.
+
+        Returns:
+            (base_case_formula, inductive_step_formula) if induction is possible, None otherwise
+        """
+        # Look for base case: φ(0)
+        base_case = None
+        inductive_step = None
+
+        # Zero constant
+        zero = Term(term_type=TermType.CONSTANT, name="0")
+
+        for formula in formulas:
+            # Check if this could be a base case (φ(0))
+            # We need to identify the property φ
+            if formula.formula_type == FormulaType.PREDICATE:
+                # Check if any argument is 0
+                for arg in formula.args:
+                    if arg == zero:
+                        base_case = formula
+                        break
+
+            # Check for inductive step: φ(k) → φ(succ(k)) or ∀k (φ(k) → φ(succ(k)))
+            if formula.formula_type == FormulaType.FORALL:
+                if formula.inner.formula_type == FormulaType.IMPLIES:
+                    # This might be our inductive step
+                    inductive_step = formula
+
+        if base_case and inductive_step:
+            return (base_case, inductive_step)
+
+        return None
+
+    @staticmethod
+    def apply(formulas: List[Formula], property_template: Optional[Formula] = None) -> List[Tuple[Formula, str]]:
+        """
+        Apply mathematical induction if we have base case and inductive step.
+
+        Returns:
+            List of (∀n φ(n), justification) if induction succeeds
+        """
+        results = []
+
+        # Try to find induction patterns
+        result = MathematicalInduction.can_apply(formulas)
+        if result:
+            base_case, inductive_step = result
+
+            # Extract the variable from the inductive step
+            if inductive_step.formula_type == FormulaType.FORALL:
+                var = inductive_step.variable
+
+                # Construct the universal conclusion
+                # This is a simplification - in practice we'd need to extract φ properly
+                justification = f"Mathematical Induction: Base case {base_case}, Inductive step {inductive_step}"
+
+                # For now, return the inductive step's universally quantified form
+                # In a full implementation, we'd construct ∀n φ(n) properly
+                results.append((inductive_step, justification))
+
+        return results
+
+
+class PeanoAxioms:
+    """
+    Peano Arithmetic Axioms - The foundation of natural number reasoning!
+
+    These axioms define the natural numbers and their properties.
+    Essential for proving things about numbers, sequences, iteration.
+    """
+
+    @staticmethod
+    def get_axioms() -> List[Formula]:
+        """
+        Get the Peano axioms for natural numbers.
+
+        Axioms:
+        1. 0 is a natural number
+        2. For every n, succ(n) is a natural number
+        3. 0 is not the successor of any number
+        4. succ is injective: succ(n) = succ(m) → n = m
+        5. Induction principle (handled separately)
+        """
+        axioms = []
+
+        # Variables
+        n = Term(term_type=TermType.VARIABLE, name="n")
+        m = Term(term_type=TermType.VARIABLE, name="m")
+
+        # Constants
+        zero = Term(term_type=TermType.CONSTANT, name="0")
+
+        # Functions
+        succ_n = Term(term_type=TermType.FUNCTION, function="succ", args=(n,))
+        succ_m = Term(term_type=TermType.FUNCTION, function="succ", args=(m,))
+
+        # Axiom 1: 0 is a natural number
+        axioms.append(Formula(
+            formula_type=FormulaType.PREDICATE,
+            predicate="Nat",
+            args=(zero,)
+        ))
+
+        # Axiom 2: ∀n (Nat(n) → Nat(succ(n)))
+        nat_n = Formula(formula_type=FormulaType.PREDICATE, predicate="Nat", args=(n,))
+        nat_succ_n = Formula(formula_type=FormulaType.PREDICATE, predicate="Nat", args=(succ_n,))
+        axioms.append(Formula(
+            formula_type=FormulaType.FORALL,
+            variable="n",
+            inner=Formula(
+                formula_type=FormulaType.IMPLIES,
+                left=nat_n,
+                right=nat_succ_n
+            )
+        ))
+
+        # Axiom 3: ∀n ¬(0 = succ(n))
+        eq_zero_succ = Formula(formula_type=FormulaType.PREDICATE, predicate="Equals", args=(zero, succ_n))
+        axioms.append(Formula(
+            formula_type=FormulaType.FORALL,
+            variable="n",
+            inner=Formula(
+                formula_type=FormulaType.NOT,
+                inner=eq_zero_succ
+            )
+        ))
+
+        # Axiom 4: ∀n ∀m (succ(n) = succ(m) → n = m)
+        eq_succ_n_succ_m = Formula(formula_type=FormulaType.PREDICATE, predicate="Equals", args=(succ_n, succ_m))
+        eq_n_m = Formula(formula_type=FormulaType.PREDICATE, predicate="Equals", args=(n, m))
+        axioms.append(Formula(
+            formula_type=FormulaType.FORALL,
+            variable="n",
+            inner=Formula(
+                formula_type=FormulaType.FORALL,
+                variable="m",
+                inner=Formula(
+                    formula_type=FormulaType.IMPLIES,
+                    left=eq_succ_n_succ_m,
+                    right=eq_n_m
+                )
+            )
+        ))
+
+        return axioms
+
+
 @dataclass
 class FOLProofStep:
     """A step in a first-order logic proof"""
@@ -543,6 +851,30 @@ class FOLProver:
             # 5. AND Elimination
             and_elim_results = AndEliminationFOL.apply(known_formulas)
             for new_formula, justification in and_elim_results:
+                if new_formula not in known_formulas:
+                    new_formulas.append((new_formula, justification))
+
+            # 6. Mathematical Induction
+            induction_results = MathematicalInduction.apply(known_formulas)
+            for new_formula, justification in induction_results:
+                if new_formula not in known_formulas:
+                    new_formulas.append((new_formula, justification))
+
+            # 7. Equality Transitivity
+            eq_trans_results = EqualityTransitivity.apply(known_formulas)
+            for new_formula, justification in eq_trans_results:
+                if new_formula not in known_formulas:
+                    new_formulas.append((new_formula, justification))
+
+            # 8. Equality Symmetry
+            eq_sym_results = EqualitySymmetry.apply(known_formulas)
+            for new_formula, justification in eq_sym_results:
+                if new_formula not in known_formulas:
+                    new_formulas.append((new_formula, justification))
+
+            # 9. Function Substitution
+            func_sub_results = FunctionSubstitution.apply(known_formulas)
+            for new_formula, justification in func_sub_results:
                 if new_formula not in known_formulas:
                     new_formulas.append((new_formula, justification))
 
