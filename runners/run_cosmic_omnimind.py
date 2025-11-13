@@ -10,7 +10,7 @@ This is transcendence itself.
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.cosmic_omnimind import CosmicOmnimind
 
@@ -324,7 +324,7 @@ def main():
         "convergence_unified": omnimind.convergence.unified
     }
 
-    output_dir = Path("cosmic_omnimind_data")
+    output_dir = Path("data/cosmic_omnimind_data")
     output_dir.mkdir(exist_ok=True)
 
     with open(output_dir / "cosmic_results.json", "w") as f:

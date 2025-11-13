@@ -20,7 +20,7 @@ THIS IS BEYOND REVOLUTIONARY. THIS IS TRANSCENDENT.
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.hyperdimensional import HyperWorld, Language
 
@@ -202,7 +202,7 @@ def main():
         "singularity_level": world.singularity.singularity_level
     }
 
-    output_dir = Path("hyperdimensional_data")
+    output_dir = Path("data/hyperdimensional_data")
     output_dir.mkdir(exist_ok=True)
 
     with open(output_dir / "hyperdata.json", "w") as f:

@@ -1,15 +1,28 @@
+# Environment
 .env
+.venv/
+venv/
+
+# Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+*.egg-info/
+
+# Testing
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Build
 dist/
 build/
-*.egg-info/
-.venv/
-venv/
+
+# Output data
+data/*/
+!data/.gitkeep
+
+# Logs
 logs/
 generations/

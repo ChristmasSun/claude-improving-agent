@@ -18,7 +18,7 @@ import sys
 from pathlib import Path
 import time
 
-sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.civilization import Civilization
 
@@ -86,7 +86,7 @@ def run_civilization_simulation(turns: int = 20, initial_population: int = 10):
     print("\n" + civ.generate_report())
 
     # Save
-    output_dir = Path("civilization_data")
+    output_dir = Path("data/civilization_data")
     civ.save_civilization(output_dir)
 
     print(f"\n\n💾 Civilization data saved to: {output_dir}/")

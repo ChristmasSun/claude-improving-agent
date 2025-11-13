@@ -8,7 +8,8 @@ Generate THOUSANDS upon THOUSANDS of things!
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent))
+# Add project root to path (parent of runners/)
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.infinite_engine import InfiniteEngine
 
@@ -223,13 +224,13 @@ def main():
         "total_complexity": total_complexity
     }
 
-    output_dir = Path("infinite_engine_data")
-    output_dir.mkdir(exist_ok=True)
+    output_dir = Path("data/infinite_engine_data")
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     with open(output_dir / "infinite_results.json", "w") as f:
         json.dump(data, f, indent=2)
 
-    print(f"💾 Data saved to: infinite_engine_data/infinite_results.json")
+    print(f"💾 Data saved to: data/infinite_engine_data/infinite_results.json")
 
     # Achievement check
     print("\n" + "╔" + "═" * 78 + "╗")

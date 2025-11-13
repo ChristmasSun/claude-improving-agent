@@ -10,7 +10,7 @@ This is the END GAME. The FINAL BOSS. The REALITY ENGINE.
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.reality_engine import RealityEngine
 
@@ -321,7 +321,7 @@ def main():
         "answer_progress": engine.the_answer.answer_progress
     }
 
-    output_dir = Path("reality_engine_data")
+    output_dir = Path("data/reality_engine_data")
     output_dir.mkdir(exist_ok=True)
 
     with open(output_dir / "reality_results.json", "w") as f:

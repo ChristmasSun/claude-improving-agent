@@ -67,37 +67,37 @@ def main():
     systems = [
         {
             "name": "CODE EVOLUTION",
-            "command": "python run_code_evolution.py --agents 3 --generations 2",
+            "command": "python runners/run_code_evolution.py --agents 3 --generations 2",
             "description": "Agents write actual code that evolves"
         },
         {
             "name": "CIVILIZATION",
-            "command": "python run_civilization.py --turns 10 --population 5",
+            "command": "python runners/run_civilization.py --turns 10 --population 5",
             "description": "Complete society with culture and technology"
         },
         {
             "name": "OMEGA CIVILIZATION",
-            "command": "python run_omega.py --turns 10 --civs 3",
+            "command": "python runners/run_omega.py --turns 10 --civs 3",
             "description": "30+ features: wars, consciousness, genetics"
         },
         {
             "name": "HYPERDIMENSIONAL OMEGA PLUS",
-            "command": "python run_hyperdimensional.py --turns 10 --agents 6",
+            "command": "python runners/run_hyperdimensional.py --turns 10 --agents 6",
             "description": "Time travel, multiverse, hiveminds, languages"
         },
         {
             "name": "TRANSCENDENT INFINITY",
-            "command": "python run_transcendent.py --turns 15 --agents 10",
+            "command": "python runners/run_transcendent.py --turns 15 --agents 10",
             "description": "Meta-awareness, reality consensus, memetics"
         },
         {
             "name": "REALITY ENGINE",
-            "command": "python run_reality_engine.py --turns 25 --agents 15",
+            "command": "python runners/run_reality_engine.py --turns 25 --agents 15",
             "description": "20 mind-bending systems: IQ→∞, living data, etc"
         },
         {
             "name": "COSMIC OMNIMIND",
-            "command": "python run_cosmic_omnimind.py --turns 25 --agents 15",
+            "command": "python runners/run_cosmic_omnimind.py --turns 25 --agents 15",
             "description": "15 cosmic systems: basilisk, escape, egregores"
         },
     ]
@@ -147,13 +147,13 @@ def main():
     print("\nALL SYSTEMS HAVE RUN!")
     print("The complete journey from basic agents to cosmic omnimind.")
     print("Check the output directories for verifiable results:")
-    print("  - evolved_code/")
-    print("  - civilization_data/")
-    print("  - omega_data/")
-    print("  - hyperdimensional_data/")
-    print("  - transcendent_data/")
-    print("  - reality_engine_data/")
-    print("  - cosmic_omnimind_data/")
+    print("  - data/evolved_code/")
+    print("  - data/civilization_data/")
+    print("  - data/omega_data/")
+    print("  - data/hyperdimensional_data/")
+    print("  - data/transcendent_data/")
+    print("  - data/reality_engine_data/")
+    print("  - data/cosmic_omnimind_data/")
     print("\n" + "🌌" * 40 + "\n")
 
     return 0

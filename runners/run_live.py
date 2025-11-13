@@ -8,7 +8,7 @@ Uses built-in API access - no API key needed!
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.live_ecosystem import LiveEcosystem
 
